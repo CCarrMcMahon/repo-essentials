@@ -7,8 +7,8 @@ public static class RepoEssentialsInfo
 {
     public const string REPO_NAME = "repo-essentials";
     public const string PROJECT_NAME = "RepoEssentials";
-    public const string PLUGIN_NAME = "R.E.P.O Essentials";
-    public const string PLUGIN_GUID = "org.ccarrmcmahon.plugins.repo.repoessentials";
+    public const string PLUGIN_NAME = "Essentials";
+    public const string PLUGIN_GUID = "org.ccarrmcmahon.plugins.repo.essentials";
     public const string PLUGIN_VERSION = "1.0.0";
 }
 
