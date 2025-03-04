@@ -1,0 +1,7 @@
+{
+    "name": "Essentials",
+    "version_number": "1.0.0",
+    "website_url": "https://github.com/CCarrMcMahon/repo-essentials",
+    "description": "An essential mod for R.E.P.O, providing crucial features to enhance your gameplay experience",
+    "dependencies": ["BepInEx-BepInExPack-5.4.2100"]
+}
