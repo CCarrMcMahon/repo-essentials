@@ -4,9 +4,8 @@ An essential mod for R.E.P.O, providing crucial features to enhance your gamepla
 
 ## Compatibility
 
--   **R.E.P.O**:
+-   **R.E.P.O**: v0.1.2
     -   **App ID**: 3241660
-    -   **Version**: v0.1.2
     -   **Build ID**: 17560228
 -   **BepInEx**: v5.4.2100
 
