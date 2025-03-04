@@ -2,7 +2,6 @@
 
 An essential mod for R.E.P.O, providing crucial features to enhance your gameplay experience.
 
-## Info
+## Features
 
--   TFM: `netstandard2.1`
--   Unity Version: `2022.3.21` ~= `2022.3.21f1`
+-   **Currency Formatting Fix**: Fixes the in-game currency display that was hardcoded to German locale (which uses decimal points as thousand separators). It now uses your system's culture settings for proper number formatting.
