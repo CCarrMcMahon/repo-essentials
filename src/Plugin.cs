@@ -17,8 +17,9 @@ namespace RepoEssentials.src {
             Harmony harmony = new(PluginInfo.GUID);
 
             // Apply patches
+            Logger.LogDebug("Loading Harmony patches...");
             harmony.PatchAll();
-            Logger.LogInfo("Harmony patches are loaded!");
+            Logger.LogDebug("Harmony patches loaded!");
 
             Logger.LogInfo("Plugin loaded successfully!");
         }
