@@ -123,6 +123,23 @@ Copy-Item -Path (Join-Path $rootDir "bin\Release\netstandard2.1\Essentials.dll")
 $manifestPath = Join-Path $rootDir "manifest.json"
 Copy-Item -Path $manifestPath -Destination $pluginDir
 
+# Copy README.md (required for Thunderstore)
+$readmePath = Join-Path $rootDir "README.md"
+if (Test-Path $readmePath) {
+    Copy-Item -Path $readmePath -Destination $pluginDir
+} else {
+    Write-Host "WARNING: README.md not found! This is required for Thunderstore." -ForegroundColor Red
+}
+
+# Copy icon.png (required for Thunderstore)
+$iconPath = Join-Path $rootDir "icon.png"
+if (Test-Path $iconPath) {
+    Copy-Item -Path $iconPath -Destination $pluginDir
+} else {
+    Write-Host "WARNING: icon.png not found! This is required for Thunderstore." -ForegroundColor Red
+    Write-Host "Please create a 256x256 PNG icon file named 'icon.png' in the root directory." -ForegroundColor Red
+}
+
 # Create a zip file
 $zipPath = Join-Path $releaseDir "Essentials_v$PluginVersion.zip"
 Compress-Archive -Path (Join-Path $releaseDir "BepInEx") -DestinationPath $zipPath -Force
