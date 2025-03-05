@@ -110,23 +110,22 @@ if (-not (Test-Path $releaseDir)) {
     New-Item -ItemType Directory -Path $releaseDir -Force | Out-Null
 }
 
-# Copy files to release directory
+# Copy DLL to plugin directory
 $pluginDir = Join-Path $releaseDir "BepInEx\plugins\Essentials"
 if (-not (Test-Path $pluginDir)) {
     New-Item -ItemType Directory -Path $pluginDir -Force | Out-Null
 }
-
-# Copy DLL
 Copy-Item -Path (Join-Path $rootDir "bin\Release\netstandard2.1\Essentials.dll") -Destination $pluginDir
 
+# Copy support files to top level directory
 # Copy manifest
 $manifestPath = Join-Path $rootDir "manifest.json"
-Copy-Item -Path $manifestPath -Destination $pluginDir
+Copy-Item -Path $manifestPath -Destination $releaseDir
 
 # Copy README.md (required for Thunderstore)
 $readmePath = Join-Path $rootDir "README.md"
 if (Test-Path $readmePath) {
-    Copy-Item -Path $readmePath -Destination $pluginDir
+    Copy-Item -Path $readmePath -Destination $releaseDir
 } else {
     Write-Host "WARNING: README.md not found! This is required for Thunderstore." -ForegroundColor Red
 }
@@ -134,15 +133,16 @@ if (Test-Path $readmePath) {
 # Copy icon.png (required for Thunderstore)
 $iconPath = Join-Path $rootDir "icon.png"
 if (Test-Path $iconPath) {
-    Copy-Item -Path $iconPath -Destination $pluginDir
+    Copy-Item -Path $iconPath -Destination $releaseDir
 } else {
     Write-Host "WARNING: icon.png not found! This is required for Thunderstore." -ForegroundColor Red
     Write-Host "Please create a 256x256 PNG icon file named 'icon.png' in the root directory." -ForegroundColor Red
 }
 
-# Create a zip file
+# Zip the contents of the release directory (both BepInEx folder and top-level files)
 $zipPath = Join-Path $releaseDir "Essentials_v$PluginVersion.zip"
-Compress-Archive -Path (Join-Path $releaseDir "BepInEx") -DestinationPath $zipPath -Force
+$zipItems = Get-ChildItem -Path $releaseDir -Exclude "*.zip"
+Compress-Archive -Path $zipItems -DestinationPath $zipPath -Force
 
 # Display information about the build
 Write-Host "Release package created at: $zipPath" -ForegroundColor Green
