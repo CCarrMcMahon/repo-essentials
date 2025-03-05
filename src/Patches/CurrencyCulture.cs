@@ -1,8 +1,8 @@
 using HarmonyLib;
 using System.Globalization;
-using System.Reflection;
 
 namespace RepoEssentials.src.patches;
+
 
 public static class CurrentCulturePatch {
     public static void SemiFuncDollarGetStringPatch(Harmony harmony) {
@@ -14,6 +14,7 @@ public static class CurrentCulturePatch {
         SemiFuncDollarGetStringPatch(harmony);
     }
 }
+
 
 [HarmonyPatch(typeof(SemiFunc), nameof(SemiFunc.DollarGetString))]
 public class SemiFunc_DollarGetString_Patch {

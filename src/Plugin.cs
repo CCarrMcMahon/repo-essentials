@@ -4,6 +4,7 @@ using HarmonyLib;
 
 namespace RepoEssentials.src;
 
+
 [BepInPlugin(PluginInfo.GUID, PluginInfo.NAME, PluginInfo.VERSION)]
 [BepInProcess(GameInfo.EXECUTABLE_NAME)]
 public class Plugin : BaseUnityPlugin {

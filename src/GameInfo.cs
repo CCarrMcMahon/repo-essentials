@@ -1,5 +1,6 @@
 namespace RepoEssentials.src;
 
+
 public static class GameInfo {
     public const string NAME = "R.E.P.O.";
     public const string VERSION = "0.1.2";

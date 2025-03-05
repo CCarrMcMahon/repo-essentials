@@ -1,5 +1,6 @@
 namespace RepoEssentials.src;
 
+
 public static class PluginInfo {
     public const string GUID = "org.ccarrmcmahon.plugins.repo.essentials";
     public const string NAME = "Essentials";
