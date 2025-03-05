@@ -1,0 +1,10 @@
+using HarmonyLib;
+using System.Globalization;
+
+[HarmonyPatch(typeof(SemiFunc), nameof(SemiFunc.DollarGetString))]
+public class DollarGetStringPatch {
+    private static bool Prefix(int value, ref string __result) {
+        __result = string.Format(CultureInfo.CurrentCulture, "{0:#,0}", value);
+        return false;
+    }
+}
