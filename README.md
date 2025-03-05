@@ -9,9 +9,9 @@ An essential mod for R.E.P.O, providing crucial features to enhance your gamepla
     -   **Build ID**: 17560228
 -   **BepInEx**: v5.4.2100
 
-## Features
+## Patches
 
--   **Currency Formatting Fix**: Fixes the in-game currency display that was hardcoded to German locale (which uses decimal points as thousand separators). It now uses your system's culture settings for proper number formatting.
+-   **Currency Culture**: Fixes the in-game currency display that was hardcoded to German locale (which uses decimal points as thousand separators). It now uses your system's culture settings for proper number formatting.
 
 ## Building
 
