@@ -19,7 +19,8 @@ public class Plugin : BaseUnityPlugin {
 
         // Apply patches
         Logger.LogDebug("Loading Harmony patches...");
-        harmony.PatchAll();
+        patches.CurrentCulturePatch.ApplyPatches(harmony);
+        patches.SinglePlayerChatPatch.ApplyPatches(harmony);
         Logger.LogDebug("Harmony patches loaded!");
 
         Logger.LogInfo("Plugin loaded successfully!");
