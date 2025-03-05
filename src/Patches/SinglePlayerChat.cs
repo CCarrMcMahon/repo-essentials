@@ -87,7 +87,7 @@ public class PlayerAvatar_Update_Patch {
                 codes.Insert(i + 1, popInstruction);
 
                 // Insert a `ldc.i4.1` instruction to load 1 onto the stack so the next `brfalse` isn't taken
-                CodeInstruction newInstruction = new(OpCodes.Ldc_I4_1) { labels = codes[i].labels };
+                CodeInstruction newInstruction = new(OpCodes.Ldc_I4_1);
                 codes.Insert(i + 2, newInstruction);
 
                 // Increment the index to skip the next instruction
@@ -121,12 +121,9 @@ public class PlayerAvatar_UpdateMyPlayerVoiceChat_Patch {
 
 [HarmonyPatch(typeof(PlayerAvatar), nameof(PlayerAvatar.ChatMessageSend))]
 public class PlayerAvatar_ChatMessageSend_Patch {
-    private static bool Prefix(PlayerAvatar __instance, string _message, bool _debugMessage) {
+    private static bool Prefix(string _message, bool _debugMessage) {
         Plugin.Logger.LogDebug($"PlayerAvatar::ChatMessageSend called with message: {_message}");
         Plugin.Logger.LogDebug($"PlayerAvatar::ChatMessageSend called with debugMessage: {_debugMessage}");
-
-        PhotonView photonView = __instance.photonView;
-        Plugin.Logger.LogDebug($"PlayerAvatar::Update called with photonView.IsMine: {photonView.IsMine}");
         return true;
     }
 }
@@ -134,9 +131,12 @@ public class PlayerAvatar_ChatMessageSend_Patch {
 
 [HarmonyPatch(typeof(PlayerAvatar), "ChatMessageSpeak")]
 public class PlayerAvatar_ChatMessageSpeak_Patch {
-    private static bool Prefix(string _message, bool crouching) {
+    private static bool Prefix(PlayerAvatar __instance, string _message, bool crouching) {
         Plugin.Logger.LogDebug($"PlayerAvatar::ChatMessageSpeak called with message: {_message}");
         Plugin.Logger.LogDebug($"PlayerAvatar::ChatMessageSpeak called with crouching: {crouching}");
+
+        PhotonView photonView = __instance.photonView;
+        Plugin.Logger.LogDebug($"PlayerAvatar::ChatMessageSpeak called while photonView.IsMine = {photonView.IsMine}");
         return true;
     }
 }
