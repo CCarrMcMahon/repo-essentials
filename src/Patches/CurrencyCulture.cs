@@ -7,11 +7,13 @@ namespace RepoEssentials.src.patches;
 public static class CurrentCulturePatch {
     public static void SemiFuncDollarGetStringPatch(Harmony harmony) {
         harmony.CreateClassProcessor(typeof(SemiFunc_DollarGetString_Patch)).Patch();
-        Plugin.Logger.LogInfo("SemiFunc.DollarGetString patch applied.");
+        Plugin.Logger.LogDebug("  - SemiFunc_DollarGetString_Patch: True");
     }
 
     public static void ApplyPatches(Harmony harmony) {
+        Plugin.Logger.LogDebug("Applying CurrentCulturePatch...");
         SemiFuncDollarGetStringPatch(harmony);
+        Plugin.Logger.LogDebug("  ==> True");
     }
 }
 
