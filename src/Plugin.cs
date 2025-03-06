@@ -2,25 +2,28 @@
 using BepInEx.Logging;
 using HarmonyLib;
 
-namespace RepoEssentials.src {
-    [BepInPlugin(PluginInfo.GUID, PluginInfo.NAME, PluginInfo.VERSION)]
-    [BepInProcess(GameInfo.EXECUTABLE_NAME)]
-    public class Plugin : BaseUnityPlugin {
-        internal static new ManualLogSource Logger;
+namespace RepoEssentials.src;
 
-        private void Awake() {
-            // Plugin startup logic
-            Logger = base.Logger;
-            Logger.LogInfo("Loading plugin...");
 
-            // Configure Harmony
-            Harmony harmony = new(PluginInfo.GUID);
+[BepInPlugin(PluginInfo.GUID, PluginInfo.NAME, PluginInfo.VERSION)]
+[BepInProcess(GameInfo.EXECUTABLE_NAME)]
+public class Plugin : BaseUnityPlugin {
+    internal static new ManualLogSource Logger;
 
-            // Apply patches
-            harmony.PatchAll();
-            Logger.LogInfo("Harmony patches are loaded!");
+    private void Awake() {
+        // Plugin startup logic
+        Logger = base.Logger;
+        Logger.LogInfo("Loading plugin...");
 
-            Logger.LogInfo("Plugin loaded successfully!");
-        }
+        // Configure Harmony
+        Harmony harmony = new(PluginInfo.GUID);
+
+        // Apply patches
+        Logger.LogDebug("Loading Harmony patches...");
+        patches.CurrentCulturePatch.ApplyPatches(harmony);
+        patches.SinglePlayerChatPatch.ApplyPatches(harmony);
+        Logger.LogDebug("Harmony patches loaded!");
+
+        Logger.LogInfo("Plugin loaded successfully!");
     }
 }

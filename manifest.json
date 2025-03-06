@@ -1,8 +1,10 @@
 {
-    "name": "Essentials",
-    "description": "An essential mod for R.E.P.O, providing crucial features to enhance your gameplay experience.",
-    "version_number": "0.1.0",
-    "author": "CCarrMcMahon",
-    "dependencies": ["BepInEx-BepInExPack-5.4.2100"],
-    "website_url": "https://github.com/CCarrMcMahon"
+  "name": "Essentials",
+  "description": "An essential mod for R.E.P.O, providing crucial features to enhance your gameplay experience.",
+  "version_number": "0.2.0",
+  "author": "CCarrMcMahon",
+  "dependencies": [
+    "BepInEx-BepInExPack-5.4.2100"
+  ],
+  "website_url": "https://github.com/CCarrMcMahon"
 }

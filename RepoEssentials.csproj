@@ -4,7 +4,7 @@
     <Product>R.E.P.O Essentials Plugin</Product>
     <RootNamespace>RepoEssentials</RootNamespace>
     <AssemblyName>Essentials</AssemblyName>
-    <Version>0.1.0</Version>
+    <Version>0.2.0</Version>
     <TargetFramework>netstandard2.1</TargetFramework>
     <OutputType>Library</OutputType>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
@@ -21,6 +21,10 @@
   <ItemGroup>
     <Reference Include="Assembly-CSharp">
       <HintPath>D:\SteamLibrary\steamapps\common\REPO\REPO_Data\Managed\Assembly-CSharp.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="PhotonUnityNetworking">
+      <HintPath>D:\SteamLibrary\steamapps\common\REPO\REPO_Data\Managed\PhotonUnityNetworking.dll</HintPath>
       <Private>False</Private>
     </Reference>
   </ItemGroup>
