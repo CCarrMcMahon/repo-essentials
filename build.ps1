@@ -19,27 +19,53 @@ $pluginVersionProvided = -not [string]::IsNullOrEmpty($PluginVersion)
 $gameVersionProvided = -not [string]::IsNullOrEmpty($GameVersion)
 $buildIDProvided = -not [string]::IsNullOrEmpty($BuildID)
 
-# Ask for versions only if user wants to update them
+# Get current version values
+$currentPluginVersion = ""
+$currentGameVersion = ""
+$currentBuildID = ""
+
+# Read current plugin version
+$pluginInfoPath = Join-Path $rootDir "src\PluginInfo.cs"
+if (Test-Path $pluginInfoPath) {
+    $pluginInfoContent = Get-Content $pluginInfoPath -Raw
+    if ($pluginInfoContent -match 'public const string VERSION = "([^"]+)";') {
+        $currentPluginVersion = $matches[1]
+    }
+}
+
+# Read current game version and build ID
+$gameInfoPath = Join-Path $rootDir "src\GameInfo.cs"
+if (Test-Path $gameInfoPath) {
+    $gameInfoContent = Get-Content $gameInfoPath -Raw
+    if ($gameInfoContent -match 'public const string VERSION = "([^"]+)";') {
+        $currentGameVersion = $matches[1]
+    }
+    if ($gameInfoContent -match 'public const string BUILD_ID = "([^"]+)";') {
+        $currentBuildID = $matches[1]
+    }
+}
+
+# Ask for versions if not provided as parameters
 if (-not $pluginVersionProvided) {
-    $updatePlugin = Read-Host "Do you want to update plugin version? (y/n)"
-    if ($updatePlugin -eq "y") {
-        $PluginVersion = Read-Host "Enter plugin version (e.g. 0.1.0)"
+    $input = Read-Host "Enter plugin version [$currentPluginVersion]"
+    if (-not [string]::IsNullOrEmpty($input)) {
+        $PluginVersion = $input
         $pluginVersionProvided = $true
     }
 }
 
 if (-not $gameVersionProvided) {
-    $updateGame = Read-Host "Do you want to update game version? (y/n)"
-    if ($updateGame -eq "y") {
-        $GameVersion = Read-Host "Enter game version (e.g. 0.1.2)"
+    $input = Read-Host "Enter game version [$currentGameVersion]"
+    if (-not [string]::IsNullOrEmpty($input)) {
+        $GameVersion = $input
         $gameVersionProvided = $true
     }
 }
 
 if (-not $buildIDProvided) {
-    $updateBuildID = Read-Host "Do you want to update build ID? (y/n)"
-    if ($updateBuildID -eq "y") {
-        $BuildID = Read-Host "Enter game build ID (e.g. 17560228)"
+    $input = Read-Host "Enter game build ID [$currentBuildID]"
+    if (-not [string]::IsNullOrEmpty($input)) {
+        $BuildID = $input
         $buildIDProvided = $true
     }
 }
