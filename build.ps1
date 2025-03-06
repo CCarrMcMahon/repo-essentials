@@ -60,8 +60,8 @@ if ($pluginVersionProvided -or $gameVersionProvided -or $buildIDProvided) {
         if ($buildIDProvided) {
             $gameInfoContent = $gameInfoContent -replace 'public const string BUILD_ID = "[^"]+";', "public const string BUILD_ID = `"$BuildID`";"
         }
-        
-        Set-Content -Path $gameInfoPath -Value $gameInfoContent
+
+        $gameInfoContent | Out-File -FilePath $gameInfoPath -NoNewline
     }
 
     # Update PluginInfo.cs if needed
@@ -69,7 +69,7 @@ if ($pluginVersionProvided -or $gameVersionProvided -or $buildIDProvided) {
         $pluginInfoPath = Join-Path $rootDir "src\PluginInfo.cs"
         $pluginInfoContent = Get-Content $pluginInfoPath -Raw
         $pluginInfoContent = $pluginInfoContent -replace 'public const string VERSION = "[^"]+";', "public const string VERSION = `"$PluginVersion`";"
-        Set-Content -Path $pluginInfoPath -Value $pluginInfoContent
+        $pluginInfoContent | Out-File -FilePath $pluginInfoPath -NoNewline
 
         # Update manifest.json
         $manifestPath = Join-Path $rootDir "manifest.json"
@@ -81,7 +81,7 @@ if ($pluginVersionProvided -or $gameVersionProvided -or $buildIDProvided) {
         $csprojPath = Join-Path $rootDir "RepoEssentials.csproj"
         $csprojContent = Get-Content $csprojPath -Raw
         $csprojContent = $csprojContent -replace '<Version>[^<]+</Version>', "<Version>$PluginVersion</Version>"
-        Set-Content -Path $csprojPath -Value $csprojContent
+        $csprojContent | Out-File -FilePath $csprojPath -NoNewline
     }
 }
 
