@@ -23,11 +23,15 @@ Enables access to the chat window in single-player mode by tricking the game int
 
 ### Chat Character Limit
 
-Adjusts the maximum number of characters allowed in chat messages. The default game limit is 50 characters, but this patch makes it configurable through the BepInEx config file.
+Enhances the chat system with multiple customization options, allowing you to adjust how chat appears and functions in-game.
 
 -   **Config Path**: `BepInEx/config/org.ccarrmcmahon.plugins.repo.essentials.cfg`
--   **Setting**: `[Chat] CharacterLimit = 50` (default value, can be modified as desired)
--   **_NOTE_**: This is a client side adjustment for now as there is no default support for this as a server configuration.
+-   **Settings**:
+    -   `[Chat] CharacterLimit = 250` - The maximum number of characters allowed in chat messages (default: 250)
+    -   `[Chat] ChatTextWidth = 525` - The width of the chat area in pixels (default: 525)
+    -   `[Chat] CharacterSpacing = -0.5` - The spacing between characters in chat (default: -0.5)
+    -   `[Chat] LineSpacing = -60` - The spacing between lines in chat (default: -60)
+-   **_NOTE_**: These are client-side adjustments as there is no default support for these as server configurations.
 
 ## Building
 
