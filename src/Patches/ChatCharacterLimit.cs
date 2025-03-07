@@ -11,13 +11,15 @@ namespace RepoEssentials.src.patches;
 
 public static class ChatCharacterLimit {
     public static ConfigEntry<int> CharacterLimit { get; private set; }
-    public static ConfigEntry<bool> EnableTextWrapping { get; private set; }
     public static ConfigEntry<float> ChatTextWidth { get; private set; }
+    public static ConfigEntry<float> CharacterSpacing { get; private set; }
+    public static ConfigEntry<float> LineSpacing { get; private set; }
 
     private static void LoadConfig(ConfigFile config) {
-        CharacterLimit = config.Bind("Chat", "CharacterLimit", 150, "The maximum number of characters allowed in a chat messages.");
-        EnableTextWrapping = config.Bind("Chat", "EnableTextWrapping", true, "Enable text wrapping in chat.");
-        ChatTextWidth = config.Bind("Chat", "ChatTextWidth", 500f, "The width of the chat text area.");
+        CharacterLimit = config.Bind("Chat", "CharacterLimit", 250, "The maximum number of characters allowed in a chat messages.");
+        ChatTextWidth = config.Bind("Chat", "ChatTextWidth", 525f, "The width of the chat area.");
+        CharacterSpacing = config.Bind("Chat", "CharacterSpacing", -0.5f, "The spacing between characters in chat.");
+        LineSpacing = config.Bind("Chat", "LineSpacing", -60f, "The spacing between lines in chat.");
     }
 
     private static void ChatManagerAwakePatch(Harmony harmony) {
@@ -74,14 +76,12 @@ public class ChatManager_Awake_Patch {
         }
 
         // Configure text wrapping
-        chatText.enableWordWrapping = ChatCharacterLimit.EnableTextWrapping.Value;
-        Plugin.Logger.LogDebug($"ChatManager::chatText.enableWordWrapping = {chatText.enableWordWrapping}");
-
-        // Reduce character spacing
-        chatText.characterSpacing = -0.5f;
-
-        // Set the width of the chat text area
+        chatText.enableWordWrapping = true;
         chatRectTransform.sizeDelta = new(ChatCharacterLimit.ChatTextWidth.Value, chatRectTransform.sizeDelta.y);
+
+        // Configure text spacing
+        chatText.characterSpacing = ChatCharacterLimit.CharacterSpacing.Value;
+        chatText.lineSpacing = ChatCharacterLimit.LineSpacing.Value;
 
         PatchSuccessful = true;
     }
