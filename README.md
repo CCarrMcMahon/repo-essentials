@@ -17,7 +17,7 @@ Development is ongoing as I try to make R.E.P.O. an even better experience, espe
 
 This plugin will not work with:
 
--   **NoLimitChatbox** by **nickklmao**: Both plugins modify the chat character limit system in different ways. NoLimitChatbox removes the character limit entirely, while Essentials replaces it with a configurable value. BepInEx will prevent loading both plugins together.
+-   **NoLimitChatbox** by **nickklmao**: Both plugins modify the chat character limit system in different ways. NoLimitChatbox removes the character limit entirely, while Essentials replaces it with a configurable value. I have configured BepInEx to avoid loading this plugin when the other one is detected.
 
 ## Patches
 
