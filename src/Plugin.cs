@@ -7,6 +7,7 @@ namespace RepoEssentials.src;
 
 [BepInPlugin(configs.PluginInfo.GUID, configs.PluginInfo.NAME, configs.PluginInfo.VERSION)]
 [BepInProcess(configs.GameInfo.EXECUTABLE_NAME)]
+[BepInIncompatibility("nickklmao.nolimitchatbox")]
 public class Plugin : BaseUnityPlugin {
     internal static new ManualLogSource Logger;
 
