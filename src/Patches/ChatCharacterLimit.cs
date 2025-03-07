@@ -60,7 +60,6 @@ public class ChatManager_Awake_Patch {
     static void Prefix(ChatManager __instance) {
         int characterLimit = ChatCharacterLimit.CharacterLimit.Value;
         Traverse.Create(__instance).Field("characterLimit").SetValue(characterLimit);
-        Plugin.Logger.LogDebug($"ChatManager::characterLimit = {characterLimit}");
 
         // Get the chatText component
         TextMeshProUGUI chatText = Traverse.Create(__instance).Field("chatText").GetValue<TextMeshProUGUI>();
