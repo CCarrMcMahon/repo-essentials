@@ -3,15 +3,18 @@ using HarmonyLib;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.Emit;
+using TMPro;
 
 namespace RepoEssentials.src.patches;
 
 
 public static class ChatCharacterLimit {
     public static ConfigEntry<int> CharacterLimit { get; private set; }
+    public static ConfigEntry<bool> EnableTextWrapping { get; private set; }
 
     private static void LoadConfig(ConfigFile config) {
         CharacterLimit = config.Bind("Chat", "CharacterLimit", 50, "The maximum number of characters allowed in a chat messages.");
+        EnableTextWrapping = config.Bind("Chat", "EnableTextWrapping", false, "Enable text wrapping in chat.");
     }
 
     private static void ChatManagerAwakePatch(Harmony harmony) {
@@ -51,6 +54,16 @@ public class ChatManager_Awake_Patch {
         int characterLimit = ChatCharacterLimit.CharacterLimit.Value;
         Traverse.Create(__instance).Field("characterLimit").SetValue(characterLimit);
         Plugin.Logger.LogDebug($"ChatManager::characterLimit = {characterLimit}");
+
+        // Get the chatText component
+        var chatText = Traverse.Create(__instance).Field("chatText").GetValue<TextMeshProUGUI>();
+        if (chatText != null) {
+            // Configure text wrapping
+            chatText.enableWordWrapping = ChatCharacterLimit.EnableTextWrapping.Value;
+            Plugin.Logger.LogDebug($"ChatManager::chatText.enableWordWrapping = {chatText.enableWordWrapping}");
+        } else {
+            Plugin.Logger.LogError("Failed to find chatText component");
+        }
     }
 }
 
