@@ -25,12 +25,6 @@ This plugin will not work with:
 
 Fixes the in-game currency display that was hardcoded to German locale (which uses decimal points as thousand separators). It now uses your system's culture settings for proper number formatting.
 
-### Single-Player Chat
-
-Enables access to the chat window in single-player mode by tricking the game into thinking you're in multiplayer. The chat window is normally disabled entirely in single player, but this patch allows you to open it and use it for command testing.
-
--   **_NOTE_**: Text-to-speech functionality is not currently available as it would require a decent amount of modification to the game's networking layer. This may be added in the future but isn't high priority.
-
 ### Chat Character Limit
 
 Enhances the chat system with multiple customization options, allowing you to adjust how chat appears and functions in-game.
@@ -42,6 +36,12 @@ Enhances the chat system with multiple customization options, allowing you to ad
     -   `[Chat] CharacterSpacing = -0.5` - The spacing between characters in chat (default: -0.5)
     -   `[Chat] LineSpacing = -60` - The spacing between lines in chat (default: -60)
 -   **_NOTE_**: These are client-side adjustments as there is no default support for these as server configurations.
+
+### Single-Player Chat
+
+Enables access to the chat window in single-player mode by tricking the game into thinking you're in multiplayer. The chat window is normally disabled entirely in single player, but this patch allows you to open it and use it for command testing.
+
+-   **_NOTE_**: Text-to-speech functionality is not currently available as it would require a decent amount of modification to the game's networking layer. This may be added in the future but isn't high priority.
 
 ## Building
 
