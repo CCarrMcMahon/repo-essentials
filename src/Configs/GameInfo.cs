@@ -1,4 +1,4 @@
-namespace RepoEssentials.src;
+namespace RepoEssentials.src.configs;
 
 
 public static class GameInfo {

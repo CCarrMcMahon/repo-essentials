@@ -5,8 +5,8 @@ using HarmonyLib;
 namespace RepoEssentials.src;
 
 
-[BepInPlugin(PluginInfo.GUID, PluginInfo.NAME, PluginInfo.VERSION)]
-[BepInProcess(GameInfo.EXECUTABLE_NAME)]
+[BepInPlugin(configs.PluginInfo.GUID, configs.PluginInfo.NAME, configs.PluginInfo.VERSION)]
+[BepInProcess(configs.GameInfo.EXECUTABLE_NAME)]
 public class Plugin : BaseUnityPlugin {
     internal static new ManualLogSource Logger;
 
@@ -16,7 +16,7 @@ public class Plugin : BaseUnityPlugin {
         Logger.LogInfo("Loading plugin...");
 
         // Configure Harmony
-        Harmony harmony = new(PluginInfo.GUID);
+        Harmony harmony = new(configs.PluginInfo.GUID);
 
         // Apply patches
         Logger.LogDebug("Loading Harmony patches...");
