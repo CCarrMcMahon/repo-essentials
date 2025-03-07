@@ -19,7 +19,7 @@ Fixes the in-game currency display that was hardcoded to German locale (which us
 
 Enables access to the chat window in single-player mode by tricking the game into thinking you're in multiplayer. The chat window is normally disabled entirely in single player, but this patch allows you to open it and use it for command testing.
 
--   **NOTE**: Text-to-speech functionality is not currently available as it would require a decent amount of modification to the game's networking layer. This may be added in the future but isn't high priority.
+-   **_NOTE_**: Text-to-speech functionality is not currently available as it would require a decent amount of modification to the game's networking layer. This may be added in the future but isn't high priority.
 
 ### Chat Character Limit
 
@@ -27,7 +27,7 @@ Adjusts the maximum number of characters allowed in chat messages. The default g
 
 -   **Config Path**: `BepInEx/config/org.ccarrmcmahon.plugins.repo.essentials.cfg`
 -   **Setting**: `[Chat] CharacterLimit = 50` (default value, can be modified as desired)
--   **NOTE**: This is a client side adjustment for now as there is no default support for this as a server configuration.
+-   **_NOTE_**: This is a client side adjustment for now as there is no default support for this as a server configuration.
 
 ## Building
 
