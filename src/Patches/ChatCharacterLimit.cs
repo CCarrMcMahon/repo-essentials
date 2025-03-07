@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.Emit;
 using TMPro;
+using UnityEngine;
 
 namespace RepoEssentials.src.patches;
 
@@ -11,10 +12,12 @@ namespace RepoEssentials.src.patches;
 public static class ChatCharacterLimit {
     public static ConfigEntry<int> CharacterLimit { get; private set; }
     public static ConfigEntry<bool> EnableTextWrapping { get; private set; }
+    public static ConfigEntry<float> ChatTextWidth { get; private set; }
 
     private static void LoadConfig(ConfigFile config) {
-        CharacterLimit = config.Bind("Chat", "CharacterLimit", 50, "The maximum number of characters allowed in a chat messages.");
-        EnableTextWrapping = config.Bind("Chat", "EnableTextWrapping", false, "Enable text wrapping in chat.");
+        CharacterLimit = config.Bind("Chat", "CharacterLimit", 150, "The maximum number of characters allowed in a chat messages.");
+        EnableTextWrapping = config.Bind("Chat", "EnableTextWrapping", true, "Enable text wrapping in chat.");
+        ChatTextWidth = config.Bind("Chat", "ChatTextWidth", 500f, "The width of the chat text area.");
     }
 
     private static void ChatManagerAwakePatch(Harmony harmony) {
@@ -50,20 +53,37 @@ public static class ChatCharacterLimit {
 
 [HarmonyPatch(typeof(ChatManager), "Awake")]
 public class ChatManager_Awake_Patch {
+    public static bool PatchSuccessful { get; private set; } = false;
+
     static void Prefix(ChatManager __instance) {
         int characterLimit = ChatCharacterLimit.CharacterLimit.Value;
         Traverse.Create(__instance).Field("characterLimit").SetValue(characterLimit);
         Plugin.Logger.LogDebug($"ChatManager::characterLimit = {characterLimit}");
 
         // Get the chatText component
-        var chatText = Traverse.Create(__instance).Field("chatText").GetValue<TextMeshProUGUI>();
-        if (chatText != null) {
-            // Configure text wrapping
-            chatText.enableWordWrapping = ChatCharacterLimit.EnableTextWrapping.Value;
-            Plugin.Logger.LogDebug($"ChatManager::chatText.enableWordWrapping = {chatText.enableWordWrapping}");
-        } else {
+        TextMeshProUGUI chatText = Traverse.Create(__instance).Field("chatText").GetValue<TextMeshProUGUI>();
+        if (chatText == null) {
             Plugin.Logger.LogError("Failed to find chatText component");
+            return;
         }
+
+        RectTransform chatRectTransform = chatText.GetComponent<RectTransform>();
+        if (chatRectTransform == null) {
+            Plugin.Logger.LogError("Failed to get RectTransform from chatText");
+            return;
+        }
+
+        // Configure text wrapping
+        chatText.enableWordWrapping = ChatCharacterLimit.EnableTextWrapping.Value;
+        Plugin.Logger.LogDebug($"ChatManager::chatText.enableWordWrapping = {chatText.enableWordWrapping}");
+
+        // Reduce character spacing
+        chatText.characterSpacing = -0.5f;
+
+        // Set the width of the chat text area
+        chatRectTransform.sizeDelta = new(ChatCharacterLimit.ChatTextWidth.Value, chatRectTransform.sizeDelta.y);
+
+        PatchSuccessful = true;
     }
 }
 
