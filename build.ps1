@@ -109,6 +109,23 @@ if ($pluginVersionProvided -or $gameVersionProvided -or $buildIDProvided) {
         $csprojContent = $csprojContent -replace '<Version>[^<]+</Version>', "<Version>$PluginVersion</Version>"
         $csprojContent | Out-File -FilePath $csprojPath -NoNewline
     }
+    
+    # Update README.md if needed
+    $readmePath = Join-Path $rootDir "README.md"
+    if (Test-Path $readmePath) {
+        $readmeContent = Get-Content $readmePath -Raw
+        
+        if ($gameVersionProvided) {
+            $readmeContent = $readmeContent -replace '\*\*R\.E\.P\.O\.\*\*: v[0-9.]+', "**R.E.P.O.**: v$GameVersion"
+        }
+        
+        if ($buildIDProvided) {
+            $readmeContent = $readmeContent -replace '\*\*Build ID\*\*: [0-9]+', "**Build ID**: $BuildID"
+        }
+        
+        $readmeContent | Out-File -FilePath $readmePath -NoNewline
+        Write-Host "Updated version information in README.md" -ForegroundColor Cyan
+    }
 }
 
 Write-Host "Building project..." -ForegroundColor Cyan
