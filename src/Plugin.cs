@@ -5,8 +5,9 @@ using HarmonyLib;
 namespace RepoEssentials.src;
 
 
-[BepInPlugin(PluginInfo.GUID, PluginInfo.NAME, PluginInfo.VERSION)]
-[BepInProcess(GameInfo.EXECUTABLE_NAME)]
+[BepInPlugin(configs.PluginInfo.GUID, configs.PluginInfo.NAME, configs.PluginInfo.VERSION)]
+[BepInProcess(configs.GameInfo.EXECUTABLE_NAME)]
+[BepInIncompatibility("nickklmao.nolimitchatbox")]
 public class Plugin : BaseUnityPlugin {
     internal static new ManualLogSource Logger;
 
@@ -16,12 +17,13 @@ public class Plugin : BaseUnityPlugin {
         Logger.LogInfo("Loading plugin...");
 
         // Configure Harmony
-        Harmony harmony = new(PluginInfo.GUID);
+        Harmony harmony = new(configs.PluginInfo.GUID);
 
         // Apply patches
         Logger.LogDebug("Loading Harmony patches...");
-        patches.CurrentCulturePatch.ApplyPatches(harmony);
-        patches.SinglePlayerChatPatch.ApplyPatches(harmony);
+        patches.CurrentCulture.Initialize(harmony);
+        patches.SinglePlayerChat.Initialize(harmony);
+        patches.ChatCharacterLimit.Initialize(Config, harmony);
         Logger.LogDebug("Harmony patches loaded!");
 
         Logger.LogInfo("Plugin loaded successfully!");

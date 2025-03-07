@@ -4,7 +4,7 @@
     <Product>R.E.P.O Essentials Plugin</Product>
     <RootNamespace>RepoEssentials</RootNamespace>
     <AssemblyName>Essentials</AssemblyName>
-    <Version>0.2.0</Version>
+    <Version>0.3.0</Version>
     <TargetFramework>netstandard2.1</TargetFramework>
     <OutputType>Library</OutputType>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
@@ -24,7 +24,15 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="PhotonUnityNetworking">
-      <HintPath>D:\SteamLibrary\steamapps\common\REPO\REPO_Data\Managed\PhotonUnityNetworking.dll</HintPath>
+      <HintPath>lib\PhotonUnityNetworking.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.TextMeshPro">
+      <HintPath>lib\Unity.TextMeshPro.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>lib\UnityEngine.UI.dll</HintPath>
       <Private>False</Private>
     </Reference>
   </ItemGroup>

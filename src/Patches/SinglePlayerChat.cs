@@ -6,19 +6,24 @@ using System.Reflection.Emit;
 namespace RepoEssentials.src.patches;
 
 
-public static class SinglePlayerChatPatch {
-    public static bool ChatManagerUpdatePatch(Harmony harmony) {
+public static class SinglePlayerChat {
+    private static bool ChatManagerUpdatePatch(Harmony harmony) {
         harmony.CreateClassProcessor(typeof(ChatManager_Update_Patch)).Patch();
-        bool success = ChatManager_Update_Patch.PatchSuccessful;
-        Plugin.Logger.LogDebug($"  - ChatManager_Update_Patch: {success}");
-        return success;
+        bool patchSuccessful = ChatManager_Update_Patch.PatchSuccessful;
+        Plugin.Logger.LogDebug($"  - ChatManager_Update_Patch: {patchSuccessful}");
+        return patchSuccessful;
     }
 
-    public static bool ApplyPatches(Harmony harmony) {
-        Plugin.Logger.LogDebug("Applying SinglePlayerChatPatch...");
-        bool success = ChatManagerUpdatePatch(harmony);
-        Plugin.Logger.LogDebug($"  ==> {success}");
-        return success;
+    private static bool ApplyPatches(Harmony harmony) {
+        bool allApplied = true;
+        allApplied &= ChatManagerUpdatePatch(harmony);
+        return allApplied;
+    }
+
+    public static void Initialize(Harmony harmony) {
+        Plugin.Logger.LogDebug("Applying SinglePlayerChat patches...");
+        bool patchLoaded = ApplyPatches(harmony);
+        Plugin.Logger.LogDebug($"  > Success: {patchLoaded}");
     }
 }
 
@@ -28,8 +33,8 @@ public class ChatManager_Update_Patch {
     public static bool PatchSuccessful { get; private set; } = false;
 
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions) {
-        const int EXPECTED_OCCURANCES = 2;
-        int occurancesFound = 0;
+        const int INSTR_COUNT = 2;
+        int instrFound = 0;
 
         List<CodeInstruction> codes = [.. instructions];
         for (int i = 0; i < codes.Count; i++) {
@@ -38,18 +43,17 @@ public class ChatManager_Update_Patch {
 
                 // Replace the old instruction with our new one
                 codes[i] = newInstruction;
-                occurancesFound++;
+                instrFound++;
             }
         }
 
         // Set the success flag based on whether we found the expected number of occurrences
-        PatchSuccessful = occurancesFound == EXPECTED_OCCURANCES;
+        PatchSuccessful = instrFound == INSTR_COUNT;
 
         // Return the original instructions if the patch failed
         if (!PatchSuccessful) {
             Plugin.Logger.LogError(
-                $"ChatManager_Update_Patch: Found {occurancesFound} occurances of " +
-                $"SemiFunc::IsMultiplayer() instead of {EXPECTED_OCCURANCES}."
+                $"Found {instrFound} occurances of SemiFunc::IsMultiplayer() instead of {INSTR_COUNT}."
             );
             return instructions;
         }
