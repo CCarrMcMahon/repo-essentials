@@ -1,11 +1,11 @@
 param (
-    [Parameter(Mandatory=$false)]
+    [Parameter(Mandatory = $false)]
     [string]$PluginVersion = "",
     
-    [Parameter(Mandatory=$false)]
+    [Parameter(Mandatory = $false)]
     [string]$GameVersion = "",
     
-    [Parameter(Mandatory=$false)]
+    [Parameter(Mandatory = $false)]
     [string]$BuildID = ""
 )
 
@@ -25,7 +25,7 @@ $currentGameVersion = ""
 $currentBuildID = ""
 
 # Read current plugin version
-$pluginInfoPath = Join-Path $rootDir "src\PluginInfo.cs"
+$pluginInfoPath = Join-Path $rootDir "src\Configs\PluginInfo.cs"
 if (Test-Path $pluginInfoPath) {
     $pluginInfoContent = Get-Content $pluginInfoPath -Raw
     if ($pluginInfoContent -match 'public const string VERSION = "([^"]+)";') {
@@ -34,7 +34,7 @@ if (Test-Path $pluginInfoPath) {
 }
 
 # Read current game version and build ID
-$gameInfoPath = Join-Path $rootDir "src\GameInfo.cs"
+$gameInfoPath = Join-Path $rootDir "src\Configs\GameInfo.cs"
 if (Test-Path $gameInfoPath) {
     $gameInfoContent = Get-Content $gameInfoPath -Raw
     if ($gameInfoContent -match 'public const string VERSION = "([^"]+)";') {
@@ -47,25 +47,25 @@ if (Test-Path $gameInfoPath) {
 
 # Ask for versions if not provided as parameters
 if (-not $pluginVersionProvided) {
-    $input = Read-Host "Enter plugin version [$currentPluginVersion]"
-    if (-not [string]::IsNullOrEmpty($input)) {
-        $PluginVersion = $input
+    $userInput = Read-Host "Enter plugin version [$currentPluginVersion]"
+    if (-not [string]::IsNullOrEmpty($userInput)) {
+        $PluginVersion = $userInput
         $pluginVersionProvided = $true
     }
 }
 
 if (-not $gameVersionProvided) {
-    $input = Read-Host "Enter game version [$currentGameVersion]"
-    if (-not [string]::IsNullOrEmpty($input)) {
-        $GameVersion = $input
+    $userInput = Read-Host "Enter game version [$currentGameVersion]"
+    if (-not [string]::IsNullOrEmpty($userInput)) {
+        $GameVersion = $userInput
         $gameVersionProvided = $true
     }
 }
 
 if (-not $buildIDProvided) {
-    $input = Read-Host "Enter game build ID [$currentBuildID]"
-    if (-not [string]::IsNullOrEmpty($input)) {
-        $BuildID = $input
+    $userInput = Read-Host "Enter game build ID [$currentBuildID]"
+    if (-not [string]::IsNullOrEmpty($userInput)) {
+        $BuildID = $userInput
         $buildIDProvided = $true
     }
 }
@@ -76,7 +76,7 @@ if ($pluginVersionProvided -or $gameVersionProvided -or $buildIDProvided) {
 
     # Update GameInfo.cs if needed
     if ($gameVersionProvided -or $buildIDProvided) {
-        $gameInfoPath = Join-Path $rootDir "src\GameInfo.cs"
+        $gameInfoPath = Join-Path $rootDir "src\Configs\GameInfo.cs"
         $gameInfoContent = Get-Content $gameInfoPath -Raw
         
         if ($gameVersionProvided) {
@@ -92,7 +92,7 @@ if ($pluginVersionProvided -or $gameVersionProvided -or $buildIDProvided) {
 
     # Update PluginInfo.cs if needed
     if ($pluginVersionProvided) {
-        $pluginInfoPath = Join-Path $rootDir "src\PluginInfo.cs"
+        $pluginInfoPath = Join-Path $rootDir "src\Configs\PluginInfo.cs"
         $pluginInfoContent = Get-Content $pluginInfoPath -Raw
         $pluginInfoContent = $pluginInfoContent -replace 'public const string VERSION = "[^"]+";', "public const string VERSION = `"$PluginVersion`";"
         $pluginInfoContent | Out-File -FilePath $pluginInfoPath -NoNewline
@@ -119,7 +119,7 @@ dotnet build -c Release
 # For release creation, we need a plugin version
 if (-not $pluginVersionProvided) {
     # Extract current version from PluginInfo.cs if not provided
-    $pluginInfoPath = Join-Path $rootDir "src\PluginInfo.cs"
+    $pluginInfoPath = Join-Path $rootDir "src\Configs\PluginInfo.cs"
     $pluginInfoContent = Get-Content $pluginInfoPath -Raw
     if ($pluginInfoContent -match 'public const string VERSION = "([^"]+)";') {
         $PluginVersion = $matches[1]
@@ -143,6 +143,16 @@ if (-not (Test-Path $pluginDir)) {
 }
 Copy-Item -Path (Join-Path $rootDir "bin\Release\netstandard2.1\Essentials.dll") -Destination $pluginDir
 
+# Create BepInEx config directory
+$configDir = Join-Path $releaseDir "BepInEx\config"
+if (-not (Test-Path $configDir)) {
+    New-Item -ItemType Directory -Path $configDir -Force | Out-Null
+}
+
+# Copy config file
+$configFilePath = Join-Path $rootDir "src\Configs\org.ccarrmcmahon.plugins.repo.essentials.cfg"
+Copy-Item -Path $configFilePath -Destination $configDir
+
 # Copy support files to top level directory
 # Copy manifest
 $manifestPath = Join-Path $rootDir "manifest.json"
@@ -152,7 +162,8 @@ Copy-Item -Path $manifestPath -Destination $releaseDir
 $readmePath = Join-Path $rootDir "README.md"
 if (Test-Path $readmePath) {
     Copy-Item -Path $readmePath -Destination $releaseDir
-} else {
+}
+else {
     Write-Host "WARNING: README.md not found! This is required for Thunderstore." -ForegroundColor Red
 }
 
@@ -160,7 +171,8 @@ if (Test-Path $readmePath) {
 $iconPath = Join-Path $rootDir "icon.png"
 if (Test-Path $iconPath) {
     Copy-Item -Path $iconPath -Destination $releaseDir
-} else {
+}
+else {
     Write-Host "WARNING: icon.png not found! This is required for Thunderstore." -ForegroundColor Red
     Write-Host "Please create a 256x256 PNG icon file named 'icon.png' in the root directory." -ForegroundColor Red
 }
@@ -174,7 +186,7 @@ Compress-Archive -Path $zipItems -DestinationPath $zipPath -Force
 Write-Host "Release package created at: $zipPath" -ForegroundColor Green
 
 # Get current values for display
-$gameInfoPath = Join-Path $rootDir "src\GameInfo.cs"
+$gameInfoPath = Join-Path $rootDir "src\Configs\GameInfo.cs"
 $gameInfoContent = Get-Content $gameInfoPath -Raw
 
 if ($gameInfoContent -match 'public const string VERSION = "([^"]+)";') {
