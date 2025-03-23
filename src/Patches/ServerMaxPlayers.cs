@@ -1,3 +1,4 @@
+using BepInEx.Configuration;
 using HarmonyLib;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,20 @@ using System.Runtime.CompilerServices;
 namespace RepoEssentials.src.patches;
 
 
-public static class PlayerLimit {
+public static class ServerMaxPlayers {
+    public static ConfigEntry<int> MaxPlayers { get; private set; }
+
+    private static void LoadConfig(ConfigFile config) {
+        MaxPlayers = config.Bind(
+            "Server",
+            "MaxPlayers",
+            20,
+            new ConfigDescription(
+                "The maximum number of players allowed to join a server.",
+                new AcceptableValueRange<int>(1, 20))
+            );
+    }
+
     private static bool NetworkConnectTryJoiningRoomPatch(Harmony harmony) {
         harmony.CreateClassProcessor(typeof(NetworkConnect_TryJoiningRoom_Patch)).Patch();
         bool patchSuccessful = NetworkConnect_TryJoiningRoom_Patch.PatchSuccessful;
@@ -39,8 +53,12 @@ public static class PlayerLimit {
         return allApplied;
     }
 
-    public static void Initialize(Harmony harmony) {
-        Plugin.Logger.LogDebug("Applying PlayerLimit patches...");
+    public static void Initialize(ConfigFile config, Harmony harmony) {
+        Plugin.Logger.LogDebug("Loading ServerMaxPlayers config...");
+        LoadConfig(config);
+        Plugin.Logger.LogDebug("  > Success: True");
+
+        Plugin.Logger.LogDebug("Applying ServerMaxPlayers patches...");
         bool patchLoaded = ApplyPatches(harmony);
         Plugin.Logger.LogDebug($"  > Success: {patchLoaded}");
     }
@@ -59,7 +77,9 @@ public class NetworkConnect_TryJoiningRoom_Patch {
         for (int i = 0; i < codes.Count; i++) {
             if (codes[i].opcode == OpCodes.Ldc_I4_6) {
                 // Increase max players from 6 to 20
-                CodeInstruction newInstruction = new(OpCodes.Ldc_I4_S, 20) { labels = codes[i].labels };
+                CodeInstruction newInstruction = new(OpCodes.Ldc_I4_S, ServerMaxPlayers.MaxPlayers) {
+                    labels = codes[i].labels
+                };
 
                 // Replace the old instruction with our new one
                 codes[i] = newInstruction;
@@ -95,7 +115,9 @@ public class SteamManager_HostLobby_Patch {
         for (int i = 0; i < codes.Count; i++) {
             if (codes[i].opcode == OpCodes.Ldc_I4_6) {
                 // Increase max players from 6 to 20
-                CodeInstruction newInstruction = new(OpCodes.Ldc_I4_S, 20) { labels = codes[i].labels };
+                CodeInstruction newInstruction = new(OpCodes.Ldc_I4_S, ServerMaxPlayers.MaxPlayers) {
+                    labels = codes[i].labels
+                };
 
                 // Replace the old instruction with our new one
                 codes[i] = newInstruction;

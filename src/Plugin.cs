@@ -25,7 +25,7 @@ public class Plugin : BaseUnityPlugin {
         patches.CurrentCulture.Initialize(harmony);
         patches.SinglePlayerChat.Initialize(harmony);
         patches.ChatCharacterLimit.Initialize(Config, harmony);
-        patches.PlayerLimit.Initialize(harmony);
+        patches.ServerMaxPlayers.Initialize(Config, harmony);
         Logger.LogDebug("Harmony patches loaded!");
 
         Logger.LogInfo("Plugin loaded successfully!");
