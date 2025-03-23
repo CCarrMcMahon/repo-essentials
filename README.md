@@ -15,9 +15,10 @@ Development is ongoing as I try to make R.E.P.O. an even better experience, espe
 
 ## Incompatibilities
 
-This plugin will not work with:
+This plugin will not work with the following mods and has been configured to avoid loading when they are detected:
 
--   **NoLimitChatbox** by **nickklmao**: Both plugins modify the chat character limit system in different ways. NoLimitChatbox removes the character limit entirely, while Essentials replaces it with a configurable value. I have configured BepInEx to avoid loading this plugin when the other one is detected.
+-   **NoLimitChatbox** by **nickklmao**: Both plugins modify the chat character limit system in different ways. NoLimitChatbox removes the character limit entirely, while Essentials replaces it with a configurable value.
+-   **MorePlayers** by **zelofi**: Both plugins attempt to modify the maximum player limit in the game. The Server Max Players feature in Essentials conflicts with the functionality provided by MorePlayers.
 
 ## Patches
 
