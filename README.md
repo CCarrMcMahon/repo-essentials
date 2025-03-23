@@ -6,6 +6,19 @@ The mod focuses on fixing common frustrations and adding missing functionality t
 
 Development is ongoing as I try to make R.E.P.O. an even better experience, especially when playing with friends. If you have ideas for new features or improvements, please reach out. I'd love to hear from you as I expect this project to grow based on community feedback. Thanks for checking this plugin out and enjoy the game!
 
+## Table of Contents
+
+-   [Compatibility](#compatibility)
+-   [Incompatibilities](#incompatibilities)
+-   [Configuration](#configuration)
+-   [Patches](#patches)
+    -   [Currency Culture](#currency-culture)
+    -   [Chat Character Limit](#chat-character-limit)
+    -   [Server Max Players](#server-max-players)
+    -   [Single-Player Chat](#single-player-chat)
+-   [Building](#building)
+-   [License](#license)
+
 ## Compatibility
 
 -   **R.E.P.O.**: v0.1.2
@@ -18,7 +31,13 @@ Development is ongoing as I try to make R.E.P.O. an even better experience, espe
 This plugin will not work with the following mods and has been configured to avoid loading when they are detected:
 
 -   **NoLimitChatbox** by **nickklmao**: Both plugins modify the chat character limit system in different ways. NoLimitChatbox removes the character limit entirely, while Essentials replaces it with a configurable value.
--   **MorePlayers** by **zelofi**: Both plugins attempt to modify the maximum player limit in the game. The Server Max Players feature in Essentials conflicts with the functionality provided by MorePlayers.
+-   **MorePlayers** by **zelofi**: This mod alters the maximum player limit as well, creating a direct conflict with Essentials' Server Max Players feature. Both cannot be used simultaneously.
+
+## Configuration
+
+All plugin settings can be found in the following config file:
+
+-   **Config Path**: `BepInEx/config/org.ccarrmcmahon.plugins.repo.essentials.cfg`
 
 ## Patches
 
@@ -30,27 +49,28 @@ Fixes the in-game currency display that was hardcoded to German locale (which us
 
 Enhances the chat system with multiple customization options, allowing you to adjust how chat appears and functions in-game.
 
--   **Config Path**: `BepInEx/config/org.ccarrmcmahon.plugins.repo.essentials.cfg`
--   **Settings**:
-    -   `[Chat] CharacterLimit = 250` - The maximum number of characters allowed in chat messages (default: 250)
-    -   `[Chat] ChatTextWidth = 525` - The width of the chat area in pixels (default: 525)
-    -   `[Chat] CharacterSpacing = -0.5` - The spacing between characters in chat (default: -0.5)
-    -   `[Chat] LineSpacing = -60` - The spacing between lines in chat (default: -60)
--   **_NOTE_**: These are client-side adjustments as there is no default support for these as server configurations.
+| Setting                   | Default | Description                                           |
+| ------------------------- | ------- | ----------------------------------------------------- |
+| `[Chat] CharacterLimit`   | 250     | Maximum number of characters allowed in chat messages |
+| `[Chat] ChatTextWidth`    | 525     | Width of the chat area in pixels                      |
+| `[Chat] CharacterSpacing` | -0.5    | Spacing between characters in chat                    |
+| `[Chat] LineSpacing`      | -60     | Spacing between lines in chat                         |
+
+**Note**: These are client-side adjustments as there is no default support for these as server configurations.
 
 ### Server Max Players
 
-Allows you to increase the maximum number of players beyond the game's hardcoded limit of 6. You can configure the server to support up to 20 players, making it ideal for larger groups wanting to play together.
+Allows you to increase the maximum number of players beyond the game's hardcoded limit of 6.
 
--   **Config Path**: `BepInEx/config/org.ccarrmcmahon.plugins.repo.essentials.cfg`
--   **Settings**:
-    -   `[Server] MaxPlayers = 6` - The maximum number of players allowed to join a server (default: 6, range: 1-20)
+| Setting               | Default | Range | Description                                        |
+| --------------------- | ------- | ----- | -------------------------------------------------- |
+| `[Server] MaxPlayers` | 6       | 1-20  | Maximum number of players allowed to join a server |
 
 ### Single-Player Chat
 
 Enables access to the chat window in single-player mode by tricking the game into thinking you're in multiplayer. The chat window is normally disabled entirely in single player, but this patch allows you to open it and use it for command testing.
 
--   **_NOTE_**: Text-to-speech functionality is not currently available as it would require a decent amount of modification to the game's networking layer. This may be added in the future but isn't high priority.
+**Note**: Text-to-speech functionality is not currently available as it would require significant modification to the game's networking layer. This may be added in the future.
 
 ## Building
 
@@ -59,3 +79,7 @@ To build a release package:
 1. Run `.\build.ps1` from PowerShell
 2. Enter the plugin version, game version, and game build ID when prompted
 3. The script will update all version numbers, build the project, and create a release package
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
