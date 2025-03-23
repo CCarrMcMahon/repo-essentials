@@ -1,7 +1,7 @@
 {
     "name": "Essentials",
     "description": "A quality-of-life enhancement mod for the game R.E.P.O. that addresses several usability issues in the base game and provides customization options that improve the overall player experience.",
-    "version_number": "0.3.3",
+    "version_number": "0.3.4",
     "author": "CCarrMcMahon",
     "dependencies": ["BepInEx-BepInExPack-5.4.2100"],
     "website_url": "https://github.com/CCarrMcMahon/repo-essentials"
