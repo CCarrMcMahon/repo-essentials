@@ -53,7 +53,7 @@ public class ChatManager_Update_Patch {
         // Return the original instructions if the patch failed
         if (!PatchSuccessful) {
             Plugin.Logger.LogError(
-                $"Found {instrFound} occurrences of SemiFunc::IsMultiplayer() instead of {INSTR_COUNT}."
+                $"Found {instrFound} occurrences of SemiFunc::IsMultiplayer() in ChatManager::Update() instead of {INSTR_COUNT}."
             );
             return instructions;
         }
