@@ -39,8 +39,8 @@ public class NetworkConnect_TryJoiningRoom_Patch {
         List<CodeInstruction> codes = [.. instructions];
         for (int i = 0; i < codes.Count; i++) {
             if (codes[i].opcode == OpCodes.Ldc_I4_6) {
-                // Increase max players from 6 to 127
-                CodeInstruction newInstruction = new(OpCodes.Ldc_I4_S, 127) { labels = codes[i].labels };
+                // Increase max players from 6 to 20
+                CodeInstruction newInstruction = new(OpCodes.Ldc_I4_S, 20) { labels = codes[i].labels };
 
                 // Replace the old instruction with our new one
                 codes[i] = newInstruction;
