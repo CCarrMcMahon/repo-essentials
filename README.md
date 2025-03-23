@@ -15,9 +15,10 @@ Development is ongoing as I try to make R.E.P.O. an even better experience, espe
 
 ## Incompatibilities
 
-This plugin will not work with:
+This plugin will not work with the following mods and has been configured to avoid loading when they are detected:
 
--   **NoLimitChatbox** by **nickklmao**: Both plugins modify the chat character limit system in different ways. NoLimitChatbox removes the character limit entirely, while Essentials replaces it with a configurable value. I have configured BepInEx to avoid loading this plugin when the other one is detected.
+-   **NoLimitChatbox** by **nickklmao**: Both plugins modify the chat character limit system in different ways. NoLimitChatbox removes the character limit entirely, while Essentials replaces it with a configurable value.
+-   **MorePlayers** by **zelofi**: Both plugins attempt to modify the maximum player limit in the game. The Server Max Players feature in Essentials conflicts with the functionality provided by MorePlayers.
 
 ## Patches
 
@@ -36,6 +37,14 @@ Enhances the chat system with multiple customization options, allowing you to ad
     -   `[Chat] CharacterSpacing = -0.5` - The spacing between characters in chat (default: -0.5)
     -   `[Chat] LineSpacing = -60` - The spacing between lines in chat (default: -60)
 -   **_NOTE_**: These are client-side adjustments as there is no default support for these as server configurations.
+
+### Server Max Players
+
+Allows you to increase the maximum number of players beyond the game's hardcoded limit of 6. You can configure the server to support up to 20 players, making it ideal for larger groups wanting to play together.
+
+-   **Config Path**: `BepInEx/config/org.ccarrmcmahon.plugins.repo.essentials.cfg`
+-   **Settings**:
+    -   `[Server] MaxPlayers = 6` - The maximum number of players allowed to join a server (default: 6, range: 1-20)
 
 ### Single-Player Chat
 

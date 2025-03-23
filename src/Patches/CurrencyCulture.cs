@@ -1,4 +1,3 @@
-using BepInEx.Configuration;
 using HarmonyLib;
 using System.Globalization;
 
