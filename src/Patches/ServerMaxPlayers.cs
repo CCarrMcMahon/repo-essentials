@@ -10,16 +10,16 @@ namespace RepoEssentials.src.patches;
 
 
 public static class ServerMaxPlayers {
-    public static ConfigEntry<int> MaxPlayers { get; private set; }
+    public static ConfigEntry<sbyte> MaxPlayers { get; private set; }
 
     private static void LoadConfig(ConfigFile config) {
         MaxPlayers = config.Bind(
             "Server",
             "MaxPlayers",
-            20,
+            (sbyte)6,
             new ConfigDescription(
                 "The maximum number of players allowed to join a server.",
-                new AcceptableValueRange<int>(1, 20))
+                new AcceptableValueRange<sbyte>(1, 20))
             );
     }
 
@@ -76,8 +76,7 @@ public class NetworkConnect_TryJoiningRoom_Patch {
         List<CodeInstruction> codes = [.. instructions];
         for (int i = 0; i < codes.Count; i++) {
             if (codes[i].opcode == OpCodes.Ldc_I4_6) {
-                // Increase max players from 6 to 20
-                CodeInstruction newInstruction = new(OpCodes.Ldc_I4_S, ServerMaxPlayers.MaxPlayers) {
+                CodeInstruction newInstruction = new(OpCodes.Ldc_I4_S, ServerMaxPlayers.MaxPlayers.Value) {
                     labels = codes[i].labels
                 };
 
@@ -114,8 +113,7 @@ public class SteamManager_HostLobby_Patch {
         List<CodeInstruction> codes = [.. instructions];
         for (int i = 0; i < codes.Count; i++) {
             if (codes[i].opcode == OpCodes.Ldc_I4_6) {
-                // Increase max players from 6 to 20
-                CodeInstruction newInstruction = new(OpCodes.Ldc_I4_S, ServerMaxPlayers.MaxPlayers) {
+                CodeInstruction newInstruction = new(OpCodes.Ldc_I4_S, ServerMaxPlayers.MaxPlayers.Value) {
                     labels = codes[i].labels
                 };
 
