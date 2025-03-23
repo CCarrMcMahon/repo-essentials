@@ -8,7 +8,7 @@ using System.Runtime.CompilerServices;
 namespace RepoEssentials.src.patches;
 
 
-public static class HostSettings {
+public static class PlayerLimit {
     private static bool NetworkConnectTryJoiningRoomPatch(Harmony harmony) {
         harmony.CreateClassProcessor(typeof(NetworkConnect_TryJoiningRoom_Patch)).Patch();
         bool patchSuccessful = NetworkConnect_TryJoiningRoom_Patch.PatchSuccessful;
@@ -40,7 +40,7 @@ public static class HostSettings {
     }
 
     public static void Initialize(Harmony harmony) {
-        Plugin.Logger.LogDebug("Applying HostSettings patches...");
+        Plugin.Logger.LogDebug("Applying PlayerLimit patches...");
         bool patchLoaded = ApplyPatches(harmony);
         Plugin.Logger.LogDebug($"  > Success: {patchLoaded}");
     }
@@ -73,7 +73,8 @@ public class NetworkConnect_TryJoiningRoom_Patch {
         // Return the original instructions if the patch failed
         if (!PatchSuccessful) {
             Plugin.Logger.LogError(
-                $"Found {instrFound} occurrences of NetworkConnect::TryJoiningRoom instead of {INSTR_COUNT}."
+                $"Found {instrFound} occurrences of ldc.i4.6 in NetworkConnect::TryJoiningRoom() instead of"
+                + $" {INSTR_COUNT}."
             );
             return instructions;
         }
@@ -108,7 +109,7 @@ public class SteamManager_HostLobby_Patch {
         // Return the original instructions if the patch failed
         if (!PatchSuccessful) {
             Plugin.Logger.LogError(
-                $"Found {instrFound} occurrences in SteamManager::HostLobby instead of {INSTR_COUNT}."
+                $"Found {instrFound} occurrences of ldc.i4.6 in SteamManager::HostLobby() instead of {INSTR_COUNT}."
             );
             return instructions;
         }
