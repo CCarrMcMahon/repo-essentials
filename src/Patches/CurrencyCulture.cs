@@ -4,7 +4,7 @@ using System.Globalization;
 namespace RepoEssentials.src.patches;
 
 
-public static class CurrentCulture {
+public static class CurrencyCulture {
     private static void SemiFuncDollarGetStringPatch(Harmony harmony) {
         harmony.CreateClassProcessor(typeof(SemiFunc_DollarGetString_Patch)).Patch();
         Plugin.Logger.LogDebug("  - SemiFunc_DollarGetString_Patch: True");
@@ -15,7 +15,7 @@ public static class CurrentCulture {
     }
 
     public static void Initialize(Harmony harmony) {
-        Plugin.Logger.LogDebug("Applying CurrentCulture patches...");
+        Plugin.Logger.LogDebug("Applying CurrencyCulture patches...");
         ApplyPatches(harmony);
         Plugin.Logger.LogDebug($"  > Success: True");
     }
