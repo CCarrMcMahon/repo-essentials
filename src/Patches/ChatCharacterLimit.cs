@@ -16,10 +16,42 @@ public static class ChatCharacterLimit {
     public static ConfigEntry<float> LineSpacing { get; private set; }
 
     private static void LoadConfig(ConfigFile config) {
-        CharacterLimit = config.Bind("Chat", "CharacterLimit", 250, "The maximum number of characters allowed in a chat messages.");
-        ChatTextWidth = config.Bind("Chat", "ChatTextWidth", 525f, "The width of the chat area.");
-        CharacterSpacing = config.Bind("Chat", "CharacterSpacing", -0.5f, "The spacing between characters in chat.");
-        LineSpacing = config.Bind("Chat", "LineSpacing", -60f, "The spacing between lines in chat.");
+        CharacterLimit = config.Bind(
+            "Chat",
+            "CharacterLimit",
+            250,
+            new ConfigDescription(
+                "The maximum number of characters allowed in a chat messages.",
+                new AcceptableValueRange<int>(0, 1000)
+            )
+        );
+        ChatTextWidth = config.Bind(
+            "Chat",
+            "ChatTextWidth",
+            525.0f,
+            new ConfigDescription(
+                "The width of the chat area.",
+                new AcceptableValueRange<float>(-100.0f, 545.0f)
+            )
+        );
+        CharacterSpacing = config.Bind(
+            "Chat",
+            "CharacterSpacing",
+            -0.5f,
+            new ConfigDescription(
+                "The spacing between characters in chat.",
+                new AcceptableValueRange<float>(-1.0f, 10.0f)
+            )
+        );
+        LineSpacing = config.Bind(
+            "Chat",
+            "LineSpacing",
+            -45.0f,
+            new ConfigDescription(
+                "The spacing between lines in chat.",
+                new AcceptableValueRange<float>(-50.0f, 50.0f)
+            )
+        );
     }
 
     private static void ChatManagerAwakePatch(Harmony harmony) {
