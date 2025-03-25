@@ -56,7 +56,7 @@ Enhances the chat system with multiple customization options, allowing you to ad
 | `[Chat] CharacterSpacing` | -0.5    | -1        | 10        | Spacing between characters in chat                    |
 | `[Chat] LineSpacing`      | -45     | -50       | 10        | Spacing between lines in chat                         |
 
-**Note**: These are client-side adjustments as there is no default support for these as server configurations.
+**Note:** These are client-side adjustments as there is no default support for these as server configurations.
 
 ### Server Max Players
 
@@ -70,7 +70,7 @@ Allows you to increase the maximum number of players beyond the game's hardcoded
 
 Enables access to the chat window in single-player mode by tricking the game into thinking you're in multiplayer. The chat window is normally disabled entirely in single player, but this patch allows you to open it and use it for command testing.
 
-**Note**: Text-to-speech functionality is not currently available as it would require significant modification to the game's networking layer. This may be added in the future.
+**Note:** Text-to-speech functionality is not currently available as it would require significant modification to the game's networking layer. This may be added in the future.
 
 ## Building
 
