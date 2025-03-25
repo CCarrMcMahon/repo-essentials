@@ -49,12 +49,12 @@ Fixes the in-game currency display that was hardcoded to German locale (which us
 
 Enhances the chat system with multiple customization options, allowing you to adjust how chat appears and functions in-game.
 
-| Setting                   | Default | Range      | Description                                           |
-| ------------------------- | ------- | ---------- | ----------------------------------------------------- |
-| `[Chat] CharacterLimit`   | 250     | 0 - 1000   | Maximum number of characters allowed in chat messages |
-| `[Chat] ChatTextWidth`    | 525     | -100 - 545 | Width of the chat area in pixels                      |
-| `[Chat] CharacterSpacing` | -0.5    | -1 - 10    | Spacing between characters in chat                    |
-| `[Chat] LineSpacing`      | -45     | -50 - 10   | Spacing between lines in chat                         |
+| Setting                   | Default | Min Value | Max Value | Description                                           |
+| ------------------------- | ------- | --------- | --------- | ----------------------------------------------------- |
+| `[Chat] CharacterLimit`   | 250     | 0         | 1000      | Maximum number of characters allowed in chat messages |
+| `[Chat] ChatTextWidth`    | 525     | -100      | 545       | Width of the chat area in pixels                      |
+| `[Chat] CharacterSpacing` | -0.5    | -1        | 10        | Spacing between characters in chat                    |
+| `[Chat] LineSpacing`      | -45     | -50       | 10        | Spacing between lines in chat                         |
 
 **Note**: These are client-side adjustments as there is no default support for these as server configurations.
 
@@ -62,9 +62,9 @@ Enhances the chat system with multiple customization options, allowing you to ad
 
 Allows you to increase the maximum number of players beyond the game's hardcoded limit of 6.
 
-| Setting               | Default | Range  | Description                                        |
-| --------------------- | ------- | ------ | -------------------------------------------------- |
-| `[Server] MaxPlayers` | 6       | 1 - 20 | Maximum number of players allowed to join a server |
+| Setting               | Default | Min Value | Max Value | Description                                        |
+| --------------------- | ------- | --------- | --------- | -------------------------------------------------- |
+| `[Server] MaxPlayers` | 6       | 1         | 20        | Maximum number of players allowed to join a server |
 
 ### Single-Player Chat
 
