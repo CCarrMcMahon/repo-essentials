@@ -49,7 +49,7 @@ public static class ChatCharacterLimit {
             -45.0f,
             new ConfigDescription(
                 "The spacing between lines in chat.",
-                new AcceptableValueRange<float>(-50.0f, 50.0f)
+                new AcceptableValueRange<float>(-50.0f, 10.0f)
             )
         );
     }
