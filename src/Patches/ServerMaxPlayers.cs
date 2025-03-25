@@ -10,17 +10,18 @@ namespace RepoEssentials.src.patches;
 
 
 public static class ServerMaxPlayers {
-    public static ConfigEntry<sbyte> MaxPlayers { get; private set; }
+    public static ConfigEntry<int> MaxPlayers { get; private set; }
 
     private static void LoadConfig(ConfigFile config) {
         MaxPlayers = config.Bind(
             "Server",
             "MaxPlayers",
-            (sbyte)6,
+            6,
             new ConfigDescription(
                 "The maximum number of players allowed to join a server.",
-                new AcceptableValueRange<sbyte>(1, 20))
-            );
+                new AcceptableValueRange<int>(1, 20)
+            )
+        );
     }
 
     private static bool NetworkConnectTryJoiningRoomPatch(Harmony harmony) {
@@ -76,7 +77,7 @@ public class NetworkConnect_TryJoiningRoom_Patch {
         List<CodeInstruction> codes = [.. instructions];
         for (int i = 0; i < codes.Count; i++) {
             if (codes[i].opcode == OpCodes.Ldc_I4_6) {
-                CodeInstruction newInstruction = new(OpCodes.Ldc_I4_S, ServerMaxPlayers.MaxPlayers.Value) {
+                CodeInstruction newInstruction = new(OpCodes.Ldc_I4_S, (sbyte)ServerMaxPlayers.MaxPlayers.Value) {
                     labels = codes[i].labels
                 };
 
@@ -113,7 +114,7 @@ public class SteamManager_HostLobby_Patch {
         List<CodeInstruction> codes = [.. instructions];
         for (int i = 0; i < codes.Count; i++) {
             if (codes[i].opcode == OpCodes.Ldc_I4_6) {
-                CodeInstruction newInstruction = new(OpCodes.Ldc_I4_S, ServerMaxPlayers.MaxPlayers.Value) {
+                CodeInstruction newInstruction = new(OpCodes.Ldc_I4_S, (sbyte)ServerMaxPlayers.MaxPlayers.Value) {
                     labels = codes[i].labels
                 };
 
