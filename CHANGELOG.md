@@ -8,7 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) 
 
 ### Added
 
--   Created this CHANGELOG.md file to track releases better.
+-   Created this CHANGELOG.md file to track releases better ([#20](https://github.com/CCarrMcMahon/repo-essentials/issues/20)).
 -   Introduced a new step in the build script to include this file in the release package.
 
 ### Changed
