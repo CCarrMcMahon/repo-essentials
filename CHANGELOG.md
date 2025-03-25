@@ -2,19 +2,20 @@
 
 All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
 ### Added
 
--   This CHANGELOG file to track releases better.
+-   Created this CHANGELOG.md file to track releases better.
+-   Introduced a new step in the build script to include this file in the release package.
 
 ### Changed
 
--   Adjusted default `[Chat] LineSpacing` to `-45` to avoid overlap with large characters such as brackets.
--   Refactored README.md config table to better show range of valid values.
--   Renamed `CurrentCulture` class to `CurrencyCulture` to match the file and patch name.
+-   Reduced the default value of `[Chat] LineSpacing` to `-45` to avoid overlap with large characters such as brackets.
+-   Refactored the config table in README.md to better show the range of valid values.
+-   Renamed the `CurrentCulture` class to `CurrencyCulture` so it matches the file and patch name.
 
 ### Fixed
 
