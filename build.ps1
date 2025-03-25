@@ -184,6 +184,16 @@ else {
     Write-Host "WARNING: README.md not found! This is required for Thunderstore." -ForegroundColor Red
 }
 
+# Copy CHANGELOG.md
+$changelogPath = Join-Path $rootDir "CHANGELOG.md"
+if (Test-Path $changelogPath) {
+    Copy-Item -Path $changelogPath -Destination $releaseDir
+    Write-Host "Added CHANGELOG.md to release package." -ForegroundColor Cyan
+}
+else {
+    Write-Host "WARNING: CHANGELOG.md not found! Consider adding a changelog to track version changes." -ForegroundColor Yellow
+}
+
 # Copy icon.png (required for Thunderstore)
 $iconPath = Join-Path $rootDir "icon.png"
 if (Test-Path $iconPath) {
