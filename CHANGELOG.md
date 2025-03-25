@@ -18,7 +18,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Fixed
 
--   Configuration adjusted to work with RepoConfig, though a game restart is currently required ([#18](https://github.com/CCarrMcMahon/repo-essentials/issues/18)).
+-   Configuration adjusted to work with RepoConfig ([#18](https://github.com/CCarrMcMahon/repo-essentials/issues/18)).
+    -   **Note:** A game restart is currently required after changing config values as they are injected at launch.
 
 [unreleased]: https://github.com/CCarrMcMahon/repo-essentials/compare/v0.3.4...HEAD
 [0.3.4]: https://github.com/CCarrMcMahon/repo-essentials/compare/v0.3.3...v0.3.4
