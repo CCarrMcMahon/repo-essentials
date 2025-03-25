@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) 
 
 ## [Unreleased]
 
+## [0.3.5] - 2025-03-25
+
 ### Added
 
 -   Created this CHANGELOG.md file to track releases better ([#20](https://github.com/CCarrMcMahon/repo-essentials/issues/20)).
@@ -22,7 +24,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) 
 -   Configuration adjusted to work with RepoConfig ([#18](https://github.com/CCarrMcMahon/repo-essentials/issues/18)).
     -   **Note:** A game restart is currently required after changing config values as they are injected at launch.
 
-[unreleased]: https://github.com/CCarrMcMahon/repo-essentials/compare/v0.3.4...HEAD
+[unreleased]: https://github.com/CCarrMcMahon/repo-essentials/compare/v0.3.5...HEAD
+[0.3.5]: https://github.com/CCarrMcMahon/repo-essentials/compare/v0.3.4...v0.3.5
 [0.3.4]: https://github.com/CCarrMcMahon/repo-essentials/compare/v0.3.3...v0.3.4
 [0.3.3]: https://github.com/CCarrMcMahon/repo-essentials/compare/v0.3.2...v0.3.3
 [0.3.2]: https://github.com/CCarrMcMahon/repo-essentials/compare/v0.3.1...v0.3.2
